@@ -1,0 +1,41 @@
+@foreach($cart as $key=>$value)
+                                <tr class="space">
+                                    <td class="col-md-5">
+                                        <div class="row">
+                                            <div class="table-space">
+                                                <div class="col-md-7 no-space">
+                                                    <h4>{{$value->getCourses->title}}</h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="col-md-3">
+                                        <div class="number-item">
+                                            <input type="number" id="quantity{{$key}}" onchange="calculate({{$key}})" class="qtystyle" value="1">
+                                        </div>
+                                    </td>
+                                    <td class="col-md-2">
+                                        <h4 >${{$value->getCourses->price}}</h4>
+                                        <input type="hidden" id="price{{$key}}" value="{{$value->getCourses->price}}">
+                                    </td>
+                                    <td class="col-md-2">
+                                        <h4 id="subtotal{{$key}}">$</h4>
+                                    </td>
+                                    <td><a href="{{route('UI_delete_cart',$value->id)}}" class="remove">x</a></td>
+                                </tr>
+                                @push('js')
+                                    <script>
+                                            function calculate(key) {
+                                                var price = $("#price"+key).val();
+                                                var quantity = $("#quantity"+key).val();
+                                                var subtotal = parseInt(price) * parseInt(quantity);
+                                                console.log(price);
+                                                $('#subtotal'+key).text('$' + subtotal);
+                                            }
+                                            $( document ).ready(function() {
+                                                calculate({{$key}});
+                                            });
+
+                                    </script>
+                                @endpush
+                            @endforeach

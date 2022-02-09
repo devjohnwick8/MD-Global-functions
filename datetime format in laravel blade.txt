@@ -1,0 +1,15 @@
+{!! htmlspecialchars_decode(date('l j<\s\up>S</\s\up> F Y', strtotime($data->event_date))) !!}
+
+Saturday 17th December 2011
+
+
+{{date( "g:i a", strtotime( $data->event_time ) )}}
+
+4:34 pm
+
+
+{{ \Carbon::parse($data->event_time)->diffToHuman }}
+4 hours ago
+
+{{date('d-m-Y', strtotime($value->created_at))}}
+21-09-2021

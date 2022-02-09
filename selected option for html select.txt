@@ -1,0 +1,10 @@
+						<script>
+                                                    let st1 = '{{isset($company->timezone)?$company->timezone:''}}';
+                                                    if(st1=='')
+                                                    {
+                                                    }
+                                                    else
+                                                    {
+                                                        $('.tz option[value="'+st1+'"]').attr('selected',true);
+                                                    }
+                                                </script>

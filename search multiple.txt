@@ -1,0 +1,28 @@
+public function library_search(Request $request){
+        /*getting all library*/
+        $allrequest = $request->except('_token');
+        if($allrequest['title'] === null and $allrequest['category'] === null and $allrequest['status'] === null){
+
+            $library_cat = Admin1Library_Category_Model::orderBy('id','ASC')->get();
+            $library = Admin1LibraryModel::with('library_category')->where('is_deleted','0')->orderBy('id','ASC')->get();
+            return view('dashboard1/library/library-my',compact('library','library_cat'));
+        }
+        else {
+            /*getting filtered library*/
+            $library_cat = Admin1Library_Category_Model::orderBy('id', 'ASC')->get();
+            $library = Admin1LibraryModel::query();
+            foreach ($allrequest as $id => $value) {
+                if ($id === 'title' and $request->title != null) {
+
+                    $library = $library->where('title', 'LIKE', '%' . $request->title . '%');
+                } elseif ($id === 'category' and $request->category != null) {
+                    $library = $library->where('category', $request->category);
+
+                } elseif ($id === 'status' and $request->status != null) {
+                    $library = $library->where('status', $request->status);
+                }
+            }
+            $library = $library->where('is_deleted','0')->get();
+        }
+        return view('dashboard1/library/library-my',compact('library','library_cat'));
+    }

@@ -1,0 +1,35 @@
+$('.get-id').click(function (){
+            order_id= $(this).data("orderid");
+            var data = {'order_id':order_id,'_token':'{{csrf_token()}}'};
+            var url = '{{route('admin_internal_notes')}}';
+            var res = AjaxRequest(url,data);
+            if(res.status==1)
+            {
+                $('#internal_notes').val(res.data);
+            }
+        })
+
+
+
+
+---------------------------------------------------------------------------------------------------------------
+function AjaxRequest(url,data)
+{
+    var res;
+    $.ajax({
+        url: url,
+        data: data,
+        async: false,
+        error: function() {
+        console.log('error');
+        },
+        dataType: 'json',
+        success: function(data) {
+        res= data;
+
+        },
+        type: 'POST'
+        });
+
+    return res;
+}

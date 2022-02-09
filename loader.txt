@@ -1,0 +1,34 @@
+<!--loader-->
+<style>
+        #test {
+            position: fixed;
+
+            left: 0;
+
+            top: 0;
+
+            z-index: 9999999;
+
+            width: 100%;
+
+            height: 100%;
+
+            overflow: visible;
+
+            background: rgb(255 255 255 / 65%) url("{{asset('images/loader.gif')}}") no-repeat center center;
+
+            color: #000;
+
+            display: none;
+        }
+    </style>
+
+    <div class="preloader" id="test" ></div>
+
+    function(){
+    $('#test').removeClass('d-none').addClass('d-block');
+          setTimeout(function () {
+    $('#test').removeClass('d-block').addClass('d-none');
+    }, 1000)
+    }
+<!--loader-->

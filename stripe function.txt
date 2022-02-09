@@ -1,0 +1,152 @@
+composer require stripe/stripe-php
+
+
+
+use Stripe;
+
+//inside controller
+public function stripe_payment($email, $token, $price, $desc){
+        /* stripe */
+        Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+        $customer = \Stripe\Customer::create(array(
+        'email' => $email,
+        'source'  => $token
+        ));
+        $charge = Stripe\Charge::create ([
+        "customer" => $customer->id,
+        "amount" => $price * 100,
+        "currency" => "usd",
+        "description" => $desc
+        ]);
+        return $charge;
+    }
+//controller
+
+public function stripe_events(Request $request){
+
+        $stripe = $this->stripe_payment($request->email,$request->stripeToken,$request->total_price,'Event Ticket');
+        $orders = EventOrders::where('id',$request->id)->first();
+        $orders->payment_id =$stripe->id;
+        $orders->payment_status = 1;
+        $orders->save();
+        return redirect(route('home_page'))->with('event_payment','Thank you for purchasing...');
+    }
+
+
+
+
+//env
+STRIPE_KEY=pk_test_51Iv4IMCmaCeXAIYUO9XFVzNRWLQgfnXgZCvHPYY68TJBtrkp94fFqMtlBSZdEQBH7uRTOwvDloNaOrBwUtaBglFs00BteHuRpV
+STRIPE_SECRET=sk_test_51Iv4IMCmaCeXAIYUpseH6u3YdRwZVq8DbLBSFKk63g9ojieAIgfUJDjpUod5rwm28dqtCF69oY1XBc1TxO1tsCnL00MOKZAuOZ
+
+//html
+<form role="form" action="{{route('stripe.post')}}" method="post" class="require-validation"
+	                                          data-cc-on-file="false"
+	                                          data-stripe-publishable-key="{{ env('STRIPE_KEY') }}"
+	                                          id="payment-form">
+	                                        @csrf
+	                                        <input type="hidden" name="membership" value="{{$membership->id}}">
+	                                        <input type="hidden" name="price" value="{{$membership->price}}">
+	                                        <div class='form-row row'>
+	                                            <div class='col-xs-12 form-group required'>
+	                                                <label class='control-label'>Name on Card</label>
+	                                                <input class='form-control' size='4' type='text'>
+	                                            </div>
+	                                        </div>
+
+	                                        <div class='form-row row'>
+	                                            <div class='col-xs-12 form-group card required'>
+	                                                <label class='control-label'>Card Number</label> <input
+	                                                    autocomplete='off' class='form-control card-number' maxlength="16" size='20'
+	                                                    type='text'>
+	                                            </div>
+	                                        </div>
+
+	                                        <div class='form-row row'>
+	                                            <div class='col-xs-12 col-md-4 form-group cvc required'>
+	                                                <label class='control-label'>CVC</label> <input autocomplete='off'
+	                                                class='form-control card-cvc' placeholder='ex. 311' maxlength="3" type='password'>
+	                                            </div>
+	                                            <div class='col-xs-12 col-md-4 form-group expiration required'>
+	                                                <label class='control-label'>Expiration Month</label> <input
+	                                                    class='form-control card-expiry-month' maxlength="2" placeholder='MM' size='2'
+	                                                    type='text'>
+	                                            </div>
+	                                            <div class='col-xs-12 col-md-4 form-group expiration required'>
+	                                                <label class='control-label'>Expiration Year</label> <input
+	                                                    class='form-control card-expiry-year' maxlength="4" placeholder='YYYY' size='4'
+	                                                    type='text'>
+	                                            </div>
+	                                        </div>
+
+	                                        <div class='form-row row'>
+	                                            <div class='col-md-12 error form-group d-none'>
+	                                                <div class='alert-danger alert'>Please correct the errors and try
+	                                                    again.</div>
+	                                            </div>
+	                                        </div>
+
+	                                        <div class="row">
+	                                            <div class="col-xs-12">
+
+	                                                <button class="btn btn-primary btn-lg btn-block" type="submit">Pay Now (${{$newamount == 0 ? $membership->price : $newamount}})</button>
+	                                            </div>
+	                                        </div>
+
+
+<script type="text/javascript">
+        $(function() {
+            var $form         = $(".require-validation");
+            $('form.require-validation').bind('submit', function(e) {
+                var $form         = $(".require-validation"),
+                    inputSelector = ['input[type=email]', 'input[type=password]',
+                        'input[type=text]', 'input[type=file]',
+                        'textarea'].join(', '),
+                    $inputs       = $form.find('.required').find(inputSelector),
+                    $errorMessage = $form.find('div.error'),
+                    valid         = true;
+                $errorMessage.addClass('hide');
+
+                $('.has-error').removeClass('has-error');
+                $inputs.each(function(i, el) {
+                    var $input = $(el);
+                    if ($input.val() === '') {
+                        $input.parent().addClass('has-error');
+                        $errorMessage.removeClass('hide');
+                        e.preventDefault();
+                    }
+                });
+
+                if (!$form.data('cc-on-file')) {
+                    e.preventDefault();
+                    Stripe.setPublishableKey($form.data('stripe-publishable-key'));
+                    Stripe.createToken({
+                        number: $('.card-number').val(),
+                        cvc: $('.card-cvc').val(),
+                        exp_month: $('.card-expiry-month').val(),
+                        exp_year: $('.card-expiry-year').val()
+                    }, stripeResponseHandler);
+                }
+
+            });
+
+            function stripeResponseHandler(status, response) {
+                if (response.error) {
+                    $('.error')
+                        .removeClass('d-none')
+                        .find('.alert')
+                        .text(response.error.message);
+                } else {
+                    // token contains id, last4, and card type
+                    var token = response['id'];
+                    // insert the token into the form so it gets submitted to the server
+                    $form.find('input[type=text]').empty();
+                    $form.append("<input type='hidden' name='stripeToken' value='" + token + "'/>");
+                    $form.get(0).submit();
+                }
+            }
+
+        });
+    </script>
+
+	                                </form>

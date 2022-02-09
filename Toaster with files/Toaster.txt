@@ -1,0 +1,59 @@
+//css links
+<link href="{{asset('build/toastr.css')}}" rel="stylesheet" type="text/css" />
+
+//js links
+<script src="{{asset('build/toastr.min.js')}}"></script>
+
+//js script
+<script>
+    toastr.options = {
+        "closeButton": false,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": true,
+        "positionClass": "toast-bottom-full-width",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut",
+        "setTextSize": "55"
+    }
+</script>
+
+//show message in js
+toastr["error"]('your message');
+toastr["success"]('your message');
+
+//show message in blade
+@push('js')
+                                 <script>
+                                    $(document).ready(function() {
+                                       @if(Session::has('added'))
+                                          toastr["success"](' {{ Session::get('added') }}');
+                                       @endif
+                                       @if(Session::has('failed'))
+                                          toastr["error"]('{{ Session::get('failed') }}');
+                                       @endif
+                                       @if(Session::has('out_of_stock'))
+                                            toastr["error"]('{{ Session::get('out_of_stock') }}');
+                                       @endif
+                                       @if(Session::has('already_exist'))
+                                            toastr["error"]('{{ Session::get('already_exist') }}');
+                                       @endif
+                                    });
+                                 </script>
+                                 @endpush
+
+
+//if font size is small
+ <style>
+         #toast-container *{
+            font-size:100% !important;
+         }
+ </style>

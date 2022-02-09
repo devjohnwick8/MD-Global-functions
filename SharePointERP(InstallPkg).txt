@@ -1,0 +1,257 @@
+1.sharepoint powerShell Install
+2. enable -> custom script Editor = on 
+3.https://www.sharepointdiary.com/2017/12/how-to-enable-custom-script-in-sharepoint-online.html	
+	Command execute.
+4. then goto site setting -> Site Collection Administration -> Site Collection Features
+  Active Features Name
+
+Name	 	Status
+	
+Aggregated Business Calendar
+Displays multiple business calendars in an overlay alongside Exchange and SharePoint calendars
+	
+Content Type Syndication Hub
+Provisions a site to be Enterprise Metadata hub site.
+	
+Cross-Site Collection Publishing
+Enables site collection to designate lists and document libraries as catalog sources for Cross-Site Collection Publishing.
+	
+Custom Site Collection Help
+Creates a Help library that can be used to store custom help for this site collection.
+	
+Disposition Approval Workflow
+Manages document expiration and retention by allowing participants to decide whether to retain or delete expired documents.
+Active 
+	
+Document ID Service
+Assigns IDs to documents in the Site Collection, which can be used to retrieve items independent of their current location.
+	
+Document Sets
+Provides the content types required for creating and using document sets. Create a document set when you want to manage multiple documents as a single work product.
+Active 
+	
+Duet End User Help Collection
+Enables Duet End User Help Collection
+	
+Duet Enterprise Reports Content Types
+This feature defines the fields and content types which will be used by Duet Enterprise Reports.
+	
+In Place Records Management
+Enable the definition and declaration of records in place.
+	
+Library and Folder Based Retention
+Allows list administrators to override content type retention schedules and set schedules on libraries and folders.
+Active 
+	
+Limited-access user permission lockdown mode
+When this feature is enabled, permissions for users in the "limited access" permissions level (such as Anonymous Users) are reduced, preventing access to Application Pages.
+Active 
+	
+Open Documents in Client Applications by Default
+Configures links to documents so they open in client applications instead of Web applications, by default.
+	
+Project Server Approval Content Type
+This content type is used by the Project Server Approval workflow.
+	
+Project Web App Permission for Excel Web App Refresh
+When this feature is active, users can refresh reports containing Project Web App data within Excel Web App.
+	
+Project Web App Ribbon
+Contains the ribbon controls for Project Web App pages.
+	
+Project Web App Settings
+Project Web App PMO Settings
+	
+Publishing Approval Workflow
+Routes a page for approval. Approvers can approve or reject the page, reassign the approval task, or request changes to the page. This workflow can be edited in SharePoint Designer.
+	
+Reporting
+Creates reports about information in Microsoft SharePoint Foundation.
+Active 
+	
+Reports and Data Search Support
+Provides content types, site columns, and library templates required to support Reports and Data Search in the Enterprise Search Center.
+	
+Review
+Enable the definition and declaration of review.
+	
+Sample Proposal
+Sample workflow for Project Server
+	
+Search Engine Sitemap
+This feature improves the search engine optimization of a website by automatically generating a search engine sitemap on a recurring basis that contains all valid URLs in a SharePoint website. Anonymous access must be enabled in order to use this feature.
+	
+Search Server Web Parts and Templates
+This feature will add the Search Server Web Parts and Display Templates to your site. Search will work on most sites without this feature being activated, but if you get a message about missing templates when searching, then activate this feature.
+	
+SharePoint 2007 Workflows
+Aggregated set of out-of-box workflow features provided by SharePoint 2007.
+	
+SharePoint Lists and Libraries experience
+Activate this feature to turn off the new SharePoint list and library experience for this site collection.
+	
+SharePoint Server Enterprise Site Collection features
+Features such as InfoPath Forms Services, Visio Services, Access Services, and Excel Services Application, included in the SharePoint Server Enterprise License.
+Active 
+	
+SharePoint Server Publishing Infrastructure
+Provides centralized libraries, content types, master pages and page layouts and enables page scheduling and other publishing functionality for a site collection.
+Active 
+	
+SharePoint Server Standard Site Collection features
+Features such as user profiles and search, included in the SharePoint Server Standard License.
+Active 
+	
+Site Policy
+Allows site collection administrators to define retention schedules that apply to a site and all its content.
+Active 
+	
+Three-state workflow
+Use this workflow to track items in a list.
+Active 
+	
+Video and Rich Media
+Provides libraries, content types, and web parts for storing, managing, and viewing rich media assets, like images, sound clips, and videos.
+Active 
+	
+Workflows
+Aggregated set of out-of-box workflow features provided by SharePoint.
+Active 
+
+
+
+
+
+
+4. then Go Site Actions -> 
+		Manage site features 
+	
+Name	 	Status
+	
+Announcement Tiles
+Enables Announcement Tiles feature and adds the webpart to the site.
+	
+Community Site Feature
+This feature adds community functionality such as discussion categories, content and people reputation, and the members list. It also provisions community site pages which contain these lists and features.
+	
+Content Organizer
+Create metadata based rules that move content submitted to this site to the correct library or folder.
+	
+Duet Enterprise - SAP Workflow
+Enables the site to host SAP workflow task types
+	
+Duet Enterprise Reporting
+Retrieves data from the SAP System and generates reports. You can also create and save report settings to generate reports according to your personal preferences.
+	
+Duet Enterprise Site Branding
+This feature enables Duet Enterprise logo to appear as the site logo.
+	
+External System Events
+This feature enables Alerts and Event Receivers on the External List and External Content Types.
+	
+Following Content
+Enable users to follow documents or sites.
+Active 
+	
+Getting Started
+Provides a tile view experience for common SharePoint site actions.
+Active 
+	
+Getting Started with Project Web App
+This feature creates an instance of the Promoted Links list with items about how to get started with your Project Web App site.
+	
+Hold
+This feature is used to track external actions like litigations, investigations, or audits that require you to suspend the disposition of documents.
+	
+Metadata Navigation and Filtering
+Provides each list in the site with a settings pages for configuring that list to use metadata tree view hierarchies and filter controls to improve navigation and filtering of the contained items.
+	
+Minimal Download Strategy
+A technique that delivers a faster and more fluid page navigation experience, in pages and site templates that support it, by downloading and rendering only those portions of a page that are changing.
+Active 
+	
+Mobile Browser View
+Provide document library and other lists in team site with mobile view for smartphone browsers.
+	
+Offline Synchronization for External Lists
+Enables offline synchronization between external lists and Outlook.
+	
+Project Functionality
+This feature adds project management functionality to a site. It includes tasks, a calendar, and web parts on the home page of the site.
+Active 
+	
+Project Proposal Workflow
+Provides a review workflow for managing project proposals.
+	
+Project Web App Connectivity
+Provides the lists required within a Project Site for integration with Project Web App including issues, risks, and deliverables.
+	
+SAP Workflow Web Parts
+This feature enables the usage of SAP Workflow Web Parts.
+	
+Search Config Data Content Types
+Installs content types designed to manage search config.
+	
+Search Config Data Site Columns
+Installs columns designed to manage information about search configurations.
+	
+Search Config List Instance Feature
+Create Search Config List Instance: Provisions a list to enable the import and export of search configurations
+	
+Search Config Template Feature
+Create Search Config Template: Provisions a template for the Search Config List to enable the import and export of search configurations
+	
+SharePoint Recommendations
+Display SharePoint Recommendations on site pages
+Active 
+	
+SharePoint Server Enterprise Site features
+Features such as Visio Services, Access Services, and Excel Services Application, included in the SharePoint Server Enterprise License.
+Active 
+	
+SharePoint Server Publishing
+Create a Web page library as well as supporting libraries to create and publish pages based on page layouts.
+	
+SharePoint Server Standard Site features
+Features such as user profiles and search, included in the SharePoint Server Standard License.
+Active 
+	
+SharePoint Viewers
+Display to site members the names of people who viewed files or pages on their site
+	
+Site Feed
+Enables the use of site feeds.
+Active 
+	
+Site Mailbox
+The Site Mailbox app helped keep email and documents close together by connecting your site with an Exchange mailbox. New Site Mailboxes can no longer be created in SharePoint Online. Consider using Office 365 Groups to connect a team site with an email conversation.
+	
+Site Notebook
+Creates a Microsoft OneNote 2010 notebook in the Shared Documents library and places a link to it on the Quick Launch. This feature requires a properly configured WOPI application server to create OneNote 2010 notebooks.
+Active 
+	
+Site Pages
+Allows users to add new site pages to a site.
+Active 
+	
+Spaces
+Allows users to create mixed reality spaces in a site.
+	
+Team Collaboration Lists
+Provides team collaboration capabilities for a site by making standard lists, such as document libraries and issues, available.
+Active 
+	
+Wiki Page Home Page
+This site feature will create a wiki page and set it as your site home page.
+Active 
+	
+Workflow Task Content Type
+Adds the SharePoint 2013 Workflow Task content type to the site.
+Active 
+	
+Workflows can use app permissions
+Allow workflows to read from and to write to all items in this site.
+
+show that Return to Classic SharePoint
+
+6. 

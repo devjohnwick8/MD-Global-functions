@@ -1,0 +1,42 @@
+<?php
+$formtype =$_POST['form_type'];
+if($formtype=='Newsletters')
+{
+    $subject = "Newsletters";
+}
+elseif($formtype=='Newsletters')
+{
+    $subject = "Newsletters";
+}
+elseif($formtype=='Careers')
+{
+    $subject = "Careers";
+}
+elseif($formtype=='Contact')
+{
+    $subject = "Contact";
+}
+
+$data='<table style="width:100%; border: 1px solid black; border-collapse: collapse;">';
+foreach($_POST as $key=>$value)
+{
+    $_key=ucwords(str_replace('_',' ',$key));
+    $data.='<tr><td style="border: 1px solid black; border-collapse: collapse; padding: 15px; text-align: left; font-size:15px; font-weight: 500;">'.$_key.'<td><td style=" border: 1px solid black; border-collapse: collapse; padding: 15px; text-align: left; font-size:15px">'.$value.'</td></tr>';
+}
+$data.='</table>';
+
+$headers = "MIME-Version: 1.0" . "\r\n";
+$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+$headers .= 'From: '.'info@stirlingshire.com'.'<'.$from.'StirlingShire' . "\r\n";
+$mailSent=mail("careers@stirlingshire.com",$subject,$data,$headers);
+//$mailSent=mail("devpetyr911@gmail.com",$subject,$data,$headers);
+
+if($mailSent)
+{
+    header("Location: index.html?status=success");
+}
+else
+{
+    header("Location: index.html?status=failed");
+}
+?>

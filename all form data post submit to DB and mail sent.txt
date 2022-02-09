@@ -1,0 +1,77 @@
+/-------------------------------------------------------------------------------db_connection.php
+<?php
+	//DATABASE DEFINITION PAGE//
+	class user{
+		//change these credentials according to your hosting credentials.
+		public $localhost = "localhost";
+		public $username = "innovade_front";
+		public $password = "Free8271.";
+		public $database = "innovade_front_end";
+		public $con = "";
+		
+		function __construct()
+		{
+			$this->con = mysqli_connect($this->localhost, $this->username, $this->password, $this->database);
+		}
+	}
+?>
+
+/-------------------------------------------------------------------------------submit.php
+<?php
+include 'db_connection.php';
+$reg1 = new user();
+
+    $data='';
+    foreach($_POST as $key=>$value){
+        $_key=ucwords(str_replace('_',' ',$key));
+        $data.=$_key.'='.$value.',';
+    }
+    $json = json_encode($data);
+
+    $query  = "INSERT INTO `form_data`(`data`) VALUES ('".$json."')";
+    $result = mysqli_query($reg1->con, $query);
+    
+    if($result){
+        include 'email.php';
+    } else{
+        header("Location: http://innovadesignhub.com/error");
+        die();
+    }
+    
+/-------------------------------------------------------------------------------email.php
+<?php
+
+$formtype =$_POST['contactform'];
+if($formtype=='1'){
+	$subject = "Packages Inquiry : ".$_POST['first_name'];
+}
+elseif($formtype=='2'){
+	$subject = "Contact Inquiry : ".$_POST['first_name'];
+}
+elseif($formtype=='3'){
+	$subject = "Discount Form : ".$_POST['first_name'];
+}
+else
+{
+   $subject="Inquiry"; 
+}
+
+$data='<table style="width:100%; border: 1px solid black; border-collapse: collapse;">';
+foreach($_POST as $key=>$value){
+    $_key=ucwords(str_replace('_',' ',$key));
+    $data.='<tr><td style="border: 1px solid black; border-collapse: collapse; padding: 15px; text-align: left; font-size:15px; font-weight: 500;">'.$_key.'<td><td style=" border: 1px solid black; border-collapse: collapse; padding: 15px; text-align: left; font-size:15px">'.$value.'</td></tr>';
+}
+$data.='</table>';
+
+$headers = "MIME-Version: 1.0" . "\r\n";
+$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+$mailSent=mail("info@innovadesignhub.com",$subject,$data,$headers);
+if($mailSent){
+    header("Location: http://innovadesignhub.com/thankyou");
+    die();
+    echo json_encode(['status'=>'1','data'=>'Mail Sent']);
+} else {
+    echo json_encode(['status'=>'0','data'=>'Some error occured']);
+}
+?>
+

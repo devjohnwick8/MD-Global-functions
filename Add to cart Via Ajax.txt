@@ -1,0 +1,102 @@
+
+/**------------------------------------------AJax Function-----------------------------------------------------**/
+
+function AjaxRequest(url,data)
+{
+    var res;
+    $.ajax({
+        url: url,
+        data: data,
+        async: false,
+        error: function() {
+            console.log('error');
+        },
+        dataType: 'json',
+        success: function(data) {
+            res= data;
+
+        },
+        type: 'POST'
+    });
+    return res;
+}
+
+
+
+
+/**-------------------------------------------Ajax Call from blade----------------------------------------------------**/
+							    
+								$('#add_to_cart').click(function (){
+                                                                var data ={"_token":'{{csrf_token()}}'};
+                                                                var url = '{{route('UI_Add_To_Cart',[$product->id])}}';
+                                                                var res= AjaxRequest(url,data);
+                                                                if(res.status==1)
+                                                                {
+                                                                    $('#view_cart').html('View Cart');
+                                                                    $('#cart_count').html(res.cart_length);
+                                                                    $('#added_to_cart').removeClass('d-none').addClass('d-block').fadeIn('slow');
+                                                                    // setTimeout(function () {
+                                                                    //     $('#added_to_cart').removeClass('d-none').addClass('d-block').fadeIn('slow');
+                                                                    // }, 1000)
+                                                                }
+                                                                else
+                                                                {
+                                                                    alert('Error Not Saved');
+                                                                }
+                                                            });
+                                                            $(document).ready( function () {
+                                                                $('#cart_count').html({{(session()->get('cart')!==null)?count(session()->get('cart')):'0' }});
+                                                            } );
+
+
+/**------------------------------------------Cart Controller-----------------------------------------------------**/
+
+   public function add_to_cart($product_id)
+    {
+        $product = ProductsModel::with('images_take1')->where('id',$product_id)->first();
+        $cart = session()->get('cart', []);
+
+        if(isset($cart[$product_id]))
+        {
+            $cart[$product_id]['quantity']++;
+        }
+        else
+        {
+            $cart[$product_id] = [
+                "id"=>$product_id,
+                "name" => $product->title,
+                "quantity" => 1,
+                "price" => $product->price,
+                "image" => $product->images_take1->title
+            ];
+        }
+        session()->put('cart', $cart);
+        return response()->json(['status'=>1,'cart_length'=>count(session()->get('cart', $cart)),'cart_data'=>session()->get('cart', $cart)]);
+    }
+    public function update_cart(Request $request)
+    {
+        if($request->id && $request->quantity)
+        {
+            $cart = session()->get('cart');
+            $cart[$request->id]["quantity"] = $request->quantity;
+            session()->put('cart', $cart);
+            session()->flash('success', 'Cart updated successfully');
+        }
+    }
+    public function delete_cart($product_id)
+    {
+        if($product_id)
+        {
+            $cart = session()->get('cart');
+            if(isset($cart[$product_id]))
+            {
+                unset($cart[$product_id]);
+                session()->put('cart', $cart);
+            }
+            return redirect()->back()->with('success', 'Product deleted to cart successfully!');
+            //session()->flash('success', 'Product removed successfully');
+        }
+    }
+
+
+

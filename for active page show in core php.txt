@@ -1,0 +1,25 @@
+<?php
+function active($currect_page){
+  $url_array =  explode('/', $_SERVER['REQUEST_URI']) ;
+  $url = end($url_array);  
+  if($currect_page == $url){
+      echo 'active'; //class name in css 
+  } 
+}
+?>
+<?php active('logo-design.php');?>
+
+
+/-----------------------------------------or----------------------------------------------/
+
+
+<script>
+        $(document).ready(function () {
+            var path = window.location.href;
+            $('.nav-item').each(function() {
+                if ($(this).children().attr('href') === path) {
+                    $(this).addClass('active');
+                }
+            });
+        })
+</script>

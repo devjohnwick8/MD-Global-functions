@@ -1,0 +1,3 @@
+//for limiting value to 16
+
+<input type="number" onKeyDown="if(this.value.length==16) return false;" />
