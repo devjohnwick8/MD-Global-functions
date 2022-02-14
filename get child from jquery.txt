@@ -1,0 +1,1 @@
+let mytopproduct = $( "#get_top_product tr:eq(0) td:nth-child(2)" ).html();
