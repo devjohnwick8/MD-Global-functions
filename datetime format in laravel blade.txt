@@ -13,3 +13,7 @@ Saturday 17th December 2011
 
 {{date('d-m-Y', strtotime($value->created_at))}}
 21-09-2021
+
+
+{{ \Carbon\Carbon::parse($review->created_at)->diffForHumans() }}     //for blade template
+4hours ago
