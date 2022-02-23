@@ -1,0 +1,13 @@
+			      @push('js')
+                                 <script>
+                                    $("#billing_details_click").change(function() {
+                                       if(this.checked) {
+                                          $('#billingdetails').hide('slow');
+                                       }
+                                       else
+                                       {
+                                          $('#billingdetails').show('slow');
+                                       }
+                                    });
+                                 </script>
+                              @endpush
