@@ -1,0 +1,92 @@
+<?php
+
+$file = $_FILES['fileToUpload']['tmp_name'];
+
+$filen;
+if (!isset($file))
+{
+    
+}
+else
+{
+ 
+   
+   $img_name       = $_FILES['fileToUpload']['name'];
+                    $tmp_name       = $_FILES['fileToUpload']['tmp_name'];
+                    $file_size      = $_FILES['fileToUpload']['size'];
+                    $valid_format   = array(
+                                    'jpg',
+                                    'jpeg',
+                                    'docs',
+                                    'docx',
+                                    'pdf',
+                                    'png'
+                    );
+                    $file_extension = explode('.', $img_name);
+                    $file_extension = strtolower(end($file_extension));
+                    if (in_array($file_extension, $valid_format)) {
+                                    $new_file_name    = uniqid('elite', true) . '.' . $file_extension;
+                                    $file_destination = 'upload/' . $new_file_name;
+                                   if(move_uploaded_file($tmp_name, $file_destination)==1)
+                                   {
+                                       $filen = $file_destination;
+                                   }
+                             
+                    }
+}
+
+$formtype =$_POST['contactform'];
+if($formtype=='1'){
+	$subject = "Packages Inquiry : ".$_POST['first_name'];
+}
+elseif($formtype=='2'){
+	$subject = "Contact Inquiry : ".$_POST['first_name'];
+}
+elseif($formtype=='3'){
+	$subject = "Discount Form : ".$_POST['first_name'];
+}
+else
+{
+   $subject="Logo Breif Inquiry"; 
+}
+
+$data='<table style="width:100%; border: 1px solid black; border-collapse: collapse;">';
+foreach($_POST as $key=>$value){
+    $_key=ucwords(str_replace('_',' ',$key));
+ if($key == 'submit')
+ {
+     if(isset($file))
+     {
+         $data.='<tr><td style="border: 1px solid black; border-collapse: collapse; padding: 15px; text-align: left; font-size:15px; font-weight: 500;">File<td><td style=" border: 1px solid black; border-collapse: collapse; padding: 15px; text-align: left; font-size:15px">https://elitedesignhub.com/'.$filen.'</td></tr>';
+     }
+ }
+ else
+ {
+     $data.='<tr><td style="border: 1px solid black; border-collapse: collapse; padding: 15px; text-align: left; font-size:15px; font-weight: 500;">'.$_key.'<td><td style=" border: 1px solid black; border-collapse: collapse; padding: 15px; text-align: left; font-size:15px">'.$value.'</td></tr>';
+ }
+    
+}
+$data.='</table>';
+$headers = "MIME-Version: 1.0" . "\r\n";
+$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+// $headers .= array(
+//     'From' => 'thebestwebdesignllc@gmail.com',
+//     'Reply-To' => 'webmaster@example.com',
+//     'X-Mailer' => 'PHP/' . phpversion()
+// );
+// $mailSent=mail("cody.kane@elitedesignhub.com",$subject,$data,$headers);
+// $mailSent=mail("greg.adams@elitedesignhub.com",$subject,$data,$headers);
+// $mailSent=mail("taha@thevitaldesiging.com",$subject,$data,$headers);
+// $mailSent=mail("gary.williams@elitedesignhub.com",$subject,$data,$headers);
+// $mailSent=mail("info@elitedesignhub.com",$subject,$data,$headers);
+$mailSent=mail("brief-forms@elitedesignhub.com",$subject,$data,$headers);
+
+
+if($mailSent){
+    header("Location: http://elitedesignhub.com/thankyou.php");
+    die();
+    echo json_encode(['status'=>'1','data'=>'Mail Sent']);
+} else {
+    echo json_encode(['status'=>'0','data'=>'Some error occured']);
+}
+?>
