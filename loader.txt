@@ -1,29 +1,34 @@
 <!--loader-->
 <style>
         #test {
-            position: fixed;
-
-            left: 0;
-
-            top: 0;
-
-            z-index: 9999999;
-
-            width: 100%;
-
-            height: 100%;
-
-            overflow: visible;
-
-            background: rgb(255 255 255 / 65%) url("{{asset('images/loader.gif')}}") no-repeat center center;
-
-            color: #000;
-
-            display: none;
-        }
+        width: 100%;
+        height: 100vh;
+        background: rgb(255 255 255 / 69%);
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 9999;
+    }
+    #test img {
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 45%;
+        margin: 0px auto;
+    }
     </style>
 
-    <div class="preloader" id="test" ></div>
+
+
+
+    <div class="preloader d-none" id="test" >
+    <img src="{{asset('images/loader_moyenn.gif')}}" alt="" class="img-fluid">
+    </div>
+
+
+
 
     function(){
     $('#test').removeClass('d-none').addClass('d-block');

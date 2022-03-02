@@ -1,0 +1,3 @@
+@if(pathinfo($value->file, PATHINFO_EXTENSION) === 'docx')
+    <i class="fa fa-file"></i> Download
+@endif

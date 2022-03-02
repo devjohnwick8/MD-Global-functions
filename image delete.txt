@@ -1,0 +1,3 @@
+use File;
+
+File::delete($background_images);

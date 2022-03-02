@@ -1,0 +1,38 @@
+public function addToCart(Request $request)
+     {
+         $id=$request->course_id;
+         $check = Product::where('id', $id)->first();
+         $cart = session()->get('cart', []);
+             if (isset($cart[$id])) {
+                    $chesckSession= session()->get('cart')[$id]['quantity'];
+                    if($check->stock > $chesckSession)
+                    {
+                        // dd($chesckSession);
+                        $cart[$id]['quantity'] += 1;
+                    } else
+                    {
+                        return response()->json([
+                            'status' => 1,
+                            'data' => $request,
+                            'msg' =>  'Product is Out of Stock'
+                        ]);
+                    }
+             } else {
+                if($check->stock >= 0)
+                {
+                    $cart[$id] = [
+                        "id" => $id,
+                        "quantity" => 1,
+                        "arrayCount" => 1,
+                    ];
+                }
+             }
+             session()->put('cart', $cart);
+             return response()->json([
+                 'status' => 1,
+                 'data' => $request,
+                 'count'=> session()->has('cart') ? count(session()->get('cart')) : 0,
+                 'msg' =>  'Product has been added Successfully'
+             ]);
+
+     }
