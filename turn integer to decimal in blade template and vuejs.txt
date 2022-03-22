@@ -1,0 +1,15 @@
+-for vuejs
+
+var myNumber=12.2345;
+var myNumberWithTwoDecimalPlaces=parseFloat(myNumber).toFixed(2); //12.23
+
+
+-for php laravel blade format
+
+{{ number_format($subtotal, 2) }}
+
+
+-for jquery
+
+num = 12.434234234;
+result = num.toFixed(2); // returns 12.43

@@ -1,0 +1,40 @@
+<style>
+      #google_translate_element {
+         width: 130px;
+         margin: 9px 0 0 0;
+      }
+      #google_translate_element .goog-te-gadget {
+         font-family: arial;
+         font-size: 11px;
+         color: #512500;
+         white-space: nowrap;
+         height: 40px !important;
+         overflow: hidden !important;
+      }
+      #google_translate_element .goog-te-gadget .goog-te-combo {
+         width: 100%;
+         margin: 4px 0;
+         height: 25px;
+      }
+      .goog-te-banner-frame {
+         display: none !important;
+      }
+      .loaded{
+         top: 0 !important;
+      }
+
+   </style>
+
+
+
+
+
+<!--for language change ------------------------------------------------------------------------------------------------->
+                        <div id="google_translate_element"></div>
+                        <script type="text/javascript">
+                            function googleTranslateElementInit() {
+                                new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+                            }
+                        </script>
+                        <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<!--for language change ------------------------------------------------------------------------------------------------->

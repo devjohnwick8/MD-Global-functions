@@ -1,0 +1,14 @@
+function make_skeleton()
+{
+    var output = '<div class="row">';
+    for(var count = 0; count < 8; count++)
+    {
+        output += '<div class="col-md-3 mb-3 p-4">';
+        output += '<div class="mb-2 bg-light text-dark" style="height:240px;"></div>';
+        output += '<div class="mb-2 bg-light text-dark" style="height:50px;"></div>';
+        output += '<div class="mb-2 bg-light text-dark" style="height:25px;"></div>';
+        output += '</div>';
+    }
+    output += '</div>';
+    return output;
+}

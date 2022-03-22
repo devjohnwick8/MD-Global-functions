@@ -1,0 +1,25 @@
+$shop = Shop::where('vendor_id',Auth()->user()->id)->first();
+		$shop->name = $request->name;
+		$shop->description = $request->description;
+		if($request->hasFile('image'))
+		{
+		        /**delete old image*/
+		        $old_image_delete = public_path('products/'.$shop->image);
+		        if($old_image_delete !== null){
+                    unlink($old_image_delete);
+                }
+
+				$image = $request->image;
+				/** Make a new filename with extension */
+				$filename = time() . rand(1, 30) . '.' . $image->getClientOriginalExtension();
+				$img = Image::make($image->getRealPath());
+				/** Set image dimension to conserve aspect ratio */
+				$img->fit(300, 300);
+				/** Get image stream to store the image else the tmp file will be stored */
+				$img->stream();
+				/** Make a new filename with extension */
+				File::put(public_path('products/') . $filename, $img);
+				/** Store a new images for products */
+				$shop->image = $filename;
+		}
+		$shop->save();
