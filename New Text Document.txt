@@ -1,0 +1,4 @@
+#force redirect to https starts
+RewriteCond %{SERVER_PORT} 80
+RewriteRule ^/?$ "https\:\/\/moyenxpress\.com\/" [R=301,L]
+#force redirect to https ends
