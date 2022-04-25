@@ -1,0 +1,22 @@
+//for currency change overriding query parameter if user logged in starts
+        if($user_id !== '0'){
+            $user_currency = User::with('currency')->where('id',$user_id)->first();
+            $getfilter = request()->input('filter');
+            $filter = $getfilter['pricebetween'];
+
+            $explode = explode(',',$filter);
+            foreach($explode as $getPrice)
+            {
+                $currency = Currency::convert()
+                    ->from($user_currency->currency->code)
+                    ->to('USD')
+                    ->amount($getPrice)
+                    ->get();
+                $price[] = number_format((float)$currency, 2, '.', '');
+                $implodedprice = implode(",", $price);
+            }
+            $alldata = request()->all();
+            $alldata['filter']['pricebetween'] = $implodedprice;
+            $override_query_param = request()->merge($alldata);
+        }
+        //for currency change overriding query parameter if user logged in ends

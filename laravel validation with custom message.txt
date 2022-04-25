@@ -1,0 +1,6 @@
+$this->validate($request, [
+            'selection' => 'required'
+        ],
+        [
+            'selection.required' => 'Kindly select users...!'
+        ]);

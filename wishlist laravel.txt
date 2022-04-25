@@ -1,0 +1,45 @@
+blade:
+@if($wishlist !== null AND in_array($parts->get_product->id, $wishlist))
+                                                <a href="{{route('UI_delete_from_wishlist',[$parts->get_product->id])}}">
+                                                    <i class="fa fa-heart" aria-hidden="true"></i> Remove From Wishlist</a>
+                                                @else
+                                                <a href="{{route('UI_add_to_wishlist',[$parts->get_product->id])}}">
+                                                    <i class="far fa-heart"></i> Add to Wishlist</a>
+                                                @endif
+
+
+
+
+
+controller:
+public function add_to_wishlist($product_id)
+    {
+        if(auth()->check())
+        {
+            $wishlist = new WishlistModel();
+            $wishlist->user_id = auth()->user()->id;
+            $wishlist->product_id = $product_id;
+            $wishlist->save();
+            return back()->with('success','Added to wishlist successfully');
+        }
+        else{
+            return back()->with('failed','Kindly login first');
+        }
+
+    }
+    public function delete_from_wishlist($product_id)
+    {
+        $wishlist = WishlistModel::where('user_id',auth()->user()->id)->where('product_id',$product_id)->first();
+        $wishlist->delete();
+        return back()->with('success','Removed from wishlist successfully');
+    }
+
+
+
+
+
+
+route:
+//wishlist
+Route::get('add-to-wishlist/{product_id}', [UIController::class, 'add_to_wishlist'])->name('UI_add_to_wishlist');
+Route::get('remove-from-wishlist/{wishlist}', [UIController::class, 'delete_from_wishlist'])->name('UI_delete_from_wishlist');
