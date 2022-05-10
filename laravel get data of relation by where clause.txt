@@ -1,0 +1,5 @@
+$value = 'ABC';
+        $data = Product::whereHas('relation', function($q) use($value){
+            $q->where('fuel_type','=','petrol')
+           ->where('mileage','=',10);
+        })->get();

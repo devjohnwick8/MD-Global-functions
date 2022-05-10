@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cdbootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cdbootstrap/css/cdb.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/cdbootstrap/js/cdb.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/cdbootstrap/js/bootstrap.min.js"></script>
+    <script src="https://kit.fontawesome.com/9d1d9a82d2.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+    <title>Charts</title>
+  </head>
+  <style>
+  .chart-container {
+    width: 50%;
+    height: 50%;
+    margin: auto;
+  }
+</style>
+
+<body>
+<div class="card chart-container">
+  <canvas id="chart1"></canvas>
+</div>
+
+<div class="card chart-container">
+  <canvas id="chart2"></canvas>
+</div>
+
+<div class="card chart-container">
+  <canvas id="chart3"></canvas>
+</div>
+
+<div class="card chart-container">
+  <canvas id="chart4"></canvas>
+</div>
+
+<div class="card chart-container">
+  <canvas id="chart5"></canvas>
+</div>
+
+
+
+</body>
+<script>
+      const ctx1 = document.getElementById("chart1").getContext('2d');
+      const myChart1 = new Chart(ctx1, {
+        type: 'line',
+        data: {
+          labels: ["sunday", "monday", "tuesday",
+          "wednesday", "thursday", "friday", "saturday"],
+          datasets: [{
+            label: 'Last week',
+            backgroundColor: 'rgba(161, 198, 247, 1)',
+            borderColor: 'rgb(47, 128, 237)',
+            data: [3000, 4000, 2000, 5000, 8000, 9000, 2000],
+          }]
+        },
+        options: {
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: true,
+              }
+            }]
+          },
+          plugins: {
+          legend: {
+            labels: {
+              usePointStyle: true,
+            },
+          }
+        }
+        },
+      });
+</script>
+<script>
+      const ctx2 = document.getElementById("chart2").getContext('2d');
+      const myChart2 = new Chart(ctx2, {
+        type: 'bar',
+        data: {
+          labels: ["rice", "yam", "tomato", "potato",
+          "beans", "maize", "oil"],
+          datasets: [{
+            label: 'food Items',
+            backgroundColor: 'rgba(161, 198, 247, 1)',
+            borderColor: 'rgb(47, 128, 237)',
+            data: [300, 400, 200, 500, 800, 900, 200],
+          }]
+        },
+        options: {
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: true,
+              }
+            }]
+          }
+        },
+      });
+</script>
+<script>
+      const ctx3 = document.getElementById("chart3").getContext('2d');
+      const myChart3 = new Chart(ctx3, {
+        type: 'doughnut',
+        data: {
+          labels: ["rice", "yam", "tomato", "potato", "beans",
+           "maize", "oil"],
+          datasets: [{
+            label: 'food Items',
+            data: [50, 40, 20, 50, 80, 90, 20],
+            backgroundColor: ["#0074D9", "#FF4136", "#2ECC40",
+            "#FF851B", "#7FDBFF", "#B10DC9", "#FFDC00",
+            "#001f3f", "#39CCCC", "#01FF70", "#85144b",
+            "#F012BE", "#3D9970", "#111111", "#AAAAAA"]
+          }]
+        },
+      });
+</script>
+<script>
+      const ctx4 = document.getElementById("chart4").getContext('2d');
+      const myChart4 = new Chart(ctx4, {
+        type: 'pie',
+        data: {
+          labels: ["rice", "yam", "tomato", "potato",
+          "beans", "maize", "oil"],
+          datasets: [{
+            label: 'food Items',
+            backgroundColor: 'rgba(161, 198, 247, 1)',
+            borderColor: 'rgb(47, 128, 237)',
+            data: [30, 40, 20, 50, 80, 90, 20],
+          }]
+        },
+      });
+</script>
+<script>
+      const ctx5 = document.getElementById("chart5").getContext('2d');
+      const myChart5 = new Chart(ctx5, {
+        type: 'polarArea',
+        data: {
+          labels: ["rice", "yam", "tomato", "potato", "beans",
+           "maize", "oil"],
+          datasets: [{
+            label: 'food Items',
+            data: [50, 40, 20, 50, 80, 90, 20],
+            backgroundColor: ["#0074D9", "#FF4136", "#2ECC40",
+            "#FF851B", "#7FDBFF", "#B10DC9", "#FFDC00",
+            "#001f3f", "#39CCCC", "#01FF70", "#85144b",
+            "#F012BE", "#3D9970", "#111111", "#AAAAAA"]
+          }]
+        },
+      });
+</script>
