@@ -1,0 +1,23 @@
+$( document ).ready(function() {
+   	$('#cat_id').on('change', function() {
+	let catId = $(this).val();
+	$('#sub_category_id').find('option').not(':first').remove();
+	let data ={'id':catId,'_token':'{{csrf_token()}}'};
+        let url = '{{url('/cats/subcat')}}';
+        let res = AjaxRequest(url,data);
+        console.log('before');
+        if(res.status == 1)
+        {
+          if (res.data.length > 0)
+		{
+    			res.data.forEach((element, index) => {
+    			$('#sub_category_id').append(`<option value="${element.id}">${element.name}</option>`)
+    			})
+		}
+                     
+        }
+        else{
+             alert('Error Not Saved');
+        }
+	})
+});
