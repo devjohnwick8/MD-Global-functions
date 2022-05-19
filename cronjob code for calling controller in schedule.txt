@@ -1,0 +1,1 @@
+$schedule->call('App\Http\Controllers\TestController@test')->everyMinute();
