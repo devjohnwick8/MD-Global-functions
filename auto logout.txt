@@ -1,0 +1,58 @@
+//command 
+composer require laravel/ui
+
+
+//namespace
+use Illuminate\Foundation\Auth\AuthenticatesUsers; 
+
+
+//trait
+use AuthenticatesUsers; 
+
+
+//override function
+	protected function authenticated(Request $request)
+   	 {
+     	  	 Auth::logoutOtherDevices($request->password);
+    	 }
+
+
+
+//ajax request function
+public function authcheck()
+    {
+        if(!auth()->check()){
+            Auth::logout();
+            return response()->json(['status'=>1],200);
+        }else{
+            return response()->json(['status'=>0]);
+        }
+
+    }
+
+
+
+
+
+
+//script
+
+<script type="text/javascript">
+        $( document ).ready(function() {
+            function myFunction123 () {
+
+                    var data = null;
+                    var url = '{{route('authcheck')}}';
+                    var res = AjaxRequest(url,data);
+                    if(res.status==1)
+                    {
+                        window.location.replace("http://127.0.0.1:8000/user-login");
+                    }else{
+
+                    }
+            }
+            var interval = setInterval(function () { myFunction123(); }, 1000);
+        });
+
+    </script>
+

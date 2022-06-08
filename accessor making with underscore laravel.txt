@@ -1,0 +1,14 @@
+// This will make Laravel serialize our accessor.
+    protected $appends = ['discounted_price'];
+    /**accessor for currency price**/
+    public function getdiscountedPriceAttribute()
+    {
+        $Newprice = $this->attributes['discounted_price'];
+        $currency = Currency::convert()
+            ->from('USD')
+            ->to('USD')
+            ->amount($Newprice)
+            ->get();
+        $Newprice = number_format($currency, 2, '.', '');
+        return $Newprice;
+    }
