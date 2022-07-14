@@ -1,0 +1,44 @@
+public function login()
+    {
+        return view('admin.login');
+    }
+    public function login_data(Request $request)
+    {
+        if(!empty($request->email)&&!empty($request->password)){
+            $userfind = User::where('email',$request->email)->first();
+            if($userfind){
+                /*means found user*/
+                if(Hash::check($request->password,$userfind->password)){
+                    /*matched password*/
+                    Auth::login($userfind);
+                    switch($userfind->role) {
+                        case('1'): // admin
+                            return redirect(route('admin_dashboard'));
+                        break;
+                        case('2'): //user
+                            return redirect(route('user_dashboard'));
+                        break;
+                        case('3'): //host
+                            return redirect(route('host_dashboard'));
+                        break;
+                        case('4'): //coordinator
+                            return redirect(route('coordinator_dashboard'));
+                        break;
+                    }
+                    /*matched password end*/
+                }else{
+                    return redirect(route('login'))->with('failed','Password is incorrect')->with('email',$request->email);
+                }
+                /*means found user end*/
+            }else{
+                return redirect(route('login'))->with('failed','Email not found');
+            }
+        }else{
+            return redirect(route('login'))->with('failed','Please fill required fields');
+        }
+    }
+    public function logout()
+    {
+        Auth::logout();
+        return redirect(route('login'));
+    }

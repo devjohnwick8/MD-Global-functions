@@ -1,0 +1,1 @@
+find asd/.git/ -type f -exec chmod 644 {} \;
