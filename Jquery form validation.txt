@@ -1,0 +1,9 @@
+function validation_form(){
+                $(".required").each(function (item) {
+                   if( $(this).val().length === 0) 
+                   {
+                    alert("Please fill all the fields");
+                    return false;
+                   }
+                });
+            };
