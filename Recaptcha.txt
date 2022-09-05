@@ -1,0 +1,17 @@
+script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+<div class="g-recaptcha" data-sitekey="6LddrLgUAAAAALPecjWxuK2veyk3Kh6wQ3VcKB34"> </div>
+
+
+//for recaptcha
+        document.getElementById("my_captcha_form_3").addEventListener("submit",function(evt)
+        {
+            var response = grecaptcha.getResponse();
+            if(response.length == 0)
+            {
+                alert("please verify you are humann!");
+                evt.preventDefault();
+                return false;
+            }
+        });
+

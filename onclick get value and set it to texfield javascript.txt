@@ -1,0 +1,19 @@
+
+onclick="getpackage('Vital Designing | Team | $499.00');"
+
+
+
+<script>
+    function getpackage(myvalue)
+    {
+        if(myvalue)
+        {
+            document.getElementById("package").value= myvalue;
+        }
+        else{
+            myvalue = "Vital Designing"
+            document.getElementById("package").value= myvalue;
+        }
+        
+    }
+    </script>

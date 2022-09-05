@@ -1,0 +1,204 @@
+<?php
+
+
+
+
+
+//for gettting ip
+// function get_client_ip() {
+// $ipaddress = '';
+// if (isset($_SERVER['HTTP_CLIENT_IP']))
+//     $ipaddress = $_SERVER['HTTP_CLIENT_IP'];
+// else if(isset($_SERVER['HTTP_X_FORWARDED_FOR']))
+//     $ipaddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
+// else if(isset($_SERVER['HTTP_X_FORWARDED']))
+//     $ipaddress = $_SERVER['HTTP_X_FORWARDED'];
+// else if(isset($_SERVER['HTTP_FORWARDED_FOR']))
+//     $ipaddress = $_SERVER['HTTP_FORWARDED_FOR'];
+// else if(isset($_SERVER['HTTP_FORWARDED']))
+//     $ipaddress = $_SERVER['HTTP_FORWARDED'];
+// else if(isset($_SERVER['REMOTE_ADDR']))
+//     $ipaddress = $_SERVER['REMOTE_ADDR'];
+// else
+//     $ipaddress = 'UNKNOWN';
+// return $ipaddress;
+// } 
+
+
+// header("Location: https://elitedesignhub.com/cwm/custom-web-design/thankyou.html");
+// $name = $_POST['name'];
+// $email = $_POST['email'];
+// $number = $_POST['number'];
+// $description = $_POST['description'];
+// print_r($_POST['name']);
+// die();
+
+
+//Start First API
+        // foreach($_POST as $form_entry){
+        //  if(empty($form_entry))
+        //     {
+        //         $error = 'You have to fill in all fields*';
+        //         header('Location: index?error='.$error);
+        //         die();
+        //     }   
+        // }
+        
+if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['number'])) {
+        
+
+        $fields = 
+            array(
+                'grant_type' => 'password',
+                'resource' =>   'https://graph.microsoft.com',
+                'client_id' => '3285e195-1048-4657-b526-f71e619cf964' ,
+                'username' => 'brief-forms@elitedesignhub.com',
+                'password' => 'C0deCre@t0rs2o2!56##',
+                'client_secret'  => 'DIy8Q~HcUojA5J3l-AXiYQ_LHnlt3xTFL.h7ocoW'
+            );
+
+        $curl = curl_init('https://login.microsoftonline.com/be2c6775-b771-45e1-8541-c3cb118eb3ee/oauth2/token');// Initialise cURL
+        curl_setopt($curl, CURLOPT_POST, 1);// Specify the request method as POST
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $fields); // Set the posted fields
+        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1);// This will follow any redirects
+        $response = curl_exec($curl); // Execute the cURL statement
+        curl_close($curl);// Close the cURL connection
+        $token= json_decode($response, true);// Set the received token from response
+
+        
+//Ends First API------------------------------------------------------------------------------------------------------------------------------
+
+        // $title=$_POST['name'];
+        // $email=$_POST['email'];
+        // $contact=$_POST['number'];
+        // $description=$_POST['description'];
+        
+        
+        
+        
+       
+        
+        $fields = array(
+            'fields' => array(
+                "Package"=>'empty',
+                "Title"=>$_POST['name'],
+                "Email"=>$_POST['email'],
+                "Number"=>$_POST['number'],
+                "Description"=>'empty'
+            )
+        );
+        // $fields = array(
+        //     'fields' => array(
+        //         "Title"=>'title',
+        //         "Email"=>'myemail@mail.com',
+        //         "Number"=>'123456789',
+        //         "Description"=>'my department'
+        //     )
+        // );
+
+
+       header('Content-Type: application/json'); 
+       $ch = curl_init('https://graph.microsoft.com/v1.0/sites/9897f781-22f3-45f9-85dd-aa8b397c648b/lists/FF356B0C-ED28-4195-9F5D-8FB2A9315932/items'); // Initialise cURL
+       $post = json_encode($fields); // Encode the data array into a JSON string
+       $authorization = "Authorization: Bearer ".$token["access_token"]; // Prepare the authorisation token
+
+       curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json' , $authorization )); // Inject the token into the header
+       curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+       curl_setopt($ch, CURLOPT_POST, 1); // Specify th+-+quest method as POST
+       curl_setopt($ch, CURLOPT_POSTFIELDS, $post); // Set the posted fields
+       curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1); // This will follow any redirects
+
+        $result = curl_exec($ch); // Execute the cURL statement
+        $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE); // to get http code 
+        curl_close($ch); // Close the cURL connection
+        
+        if($http_status == 201) {
+            header("Location: thankyou");
+            die();
+            echo json_encode(['status'=>'1','data'=>'Mail Sent']);
+        } else {
+            echo json_encode(['status'=>'0','data'=>'Some error occured']);
+        }
+        
+}else{
+    header('Location: index');
+    die();
+}
+?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//$subject = "60 percent AVAIL DISCOUNT : ".$email;
+
+
+
+//$data='<table style="width:100%; border: 1px solid black; border-collapse: collapse;">';
+ //$data.='<tr><td style="border: 1px solid black; border-collapse: collapse; padding: 15px; text-align: left; font-size:15px; font-weight: 500;">Name<td><td style=" border: 1px solid black; border-collapse: collapse; padding: 15px; text-align: left; font-size:15px">'.$name.'</td></tr>';
+// $data.='<tr><td style="border: 1px solid black; border-collapse: collapse; padding: 15px; text-align: left; font-size:15px; font-weight: 500;">Email<td><td style=" border: 1px solid black; border-collapse: collapse; padding: 15px; text-align: left; font-size:15px">'.$email.'</td></tr>';
+ // $data.='<tr><td style="border: 1px solid black; border-collapse: collapse; padding: 15px; text-align: left; font-size:15px; font-weight: 500;">Number<td><td style=" border: 1px solid black; border-collapse: collapse; padding: 15px; text-align: left; font-size:15px">'.$number.'</td></tr>';
+ //$data.='<tr><td style="border: 1px solid black; border-collapse: collapse; padding: 15px; text-align: left; font-size:15px; font-weight: 500;">Description<td><td style=" border: 1px solid black; border-collapse: collapse; padding: 15px; text-align: left; font-size:15px">'.$description.'</td></tr>';
+//// foreach($_POST as $key=>$value){
+////     $_key=ucwords(str_replace('_',' ',$key));
+////  if($key == 'submit')
+////  {
+////      if(isset($file))
+////      {
+///        
+////      }
+////      if(isset($file2))
+////      {
+////          $data.='<tr><td style="border: 1px solid black; border-collapse: collapse; padding: 15px; text-align: left; font-size:15px; font-weight: 500;">Logo<td><td style=" border: 1px solid black; border-collapse: collapse; padding: 15px; text-align: left; font-size:15px">https://elitedesignhub.com/'.$filen2.'</td></tr>';
+////      }
+////  }
+////  else
+////  {
+////      $data.='<tr><td style="border: 1px solid black; border-collapse: collapse; padding: 15px; text-align: left; font-size:15px; font-weight: 500;">'.$_key.'<td><td style=" border: 1px solid black; border-collapse: collapse; padding: 15px; text-align: left; font-size:15px">'.$value.'</td></tr>';
+////  }
+    
+//// }
+//$data.='</table>';
+//$headers = "MIME-Version: 1.0" . "\r\n";
+//$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+//// $headers .= array(
+////     'From' => 'thebestwebdesignllc@gmail.com',
+////     'Reply-To' => 'webmaster@example.com',
+////     'X-Mailer' => 'PHP/' . phpversion()
+//// );
+//$mailSent=mail("sza78635@gmail.com",$subject,$data,$headers);
+//$mailSent=mail("vitaldesigning7@gmail.com",$subject,$data,$headers);
+//$mailSent=mail("info@elitedesignhub.com",$subject,$data,$headers);
+//$mailSent=mail("usmanahmed0262@gmail.com",$subject,$data,$headers);
+//// $mailSent=mail("devpetyr911@gmail.com",$subject,$data,$headers);
+
+
+// if($mailSent){
+//     header("Location: https://elitedesignhub.com/thankyou.html");
+//     die();
+//     echo json_encode(['status'=>'1','data'=>'Mail Sent']);
+// } else {
+//     echo json_encode(['status'=>'0','data'=>'Some error occured']);
+// }
+<!--?>-->

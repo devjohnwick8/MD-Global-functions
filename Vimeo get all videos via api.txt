@@ -1,0 +1,16 @@
+POSTMAN
+https://crimson-shuttle-350130.postman.co/workspace/New-Personal-Workspace~0872237a-d8a6-4899-91c6-2762ae192fb1/collection/16150931-17479df6-7fa3-4c30-b5ec-edac26b1d14d?ctx=documentation
+
+
+
+
+TO GET ALL VIDEOS
+https://api.vimeo.com/me/videos
+-add authorization bearer token: {access_token} from vimeo app
+
+
+TO GET VIDEOS WITH PAGES AND LIMITS
+https://api.vimeo.com/me/videos?per_page=1&page=1     
+-per_page= 1 (limit)
+-page = 1 (pagenumber)
+-add authorization bearer token: {access_token} from vimeo app

@@ -1,0 +1,196 @@
+********************** Stripe 3D Payment Gateway Integration In Laravel 8 With example *****************************
+
+Step 1: Install Laravel 8 App
+Step 2: Install stripe Package
+Step 3 Make Route
+Step 4: Create Controller
+Step 5: Create a Blade View file
+Step 6: Run Development Server
+
+**************************************************************************
+
+Step 1: Install Laravel 8 App
+=> laravel new stripe_payment_gateway
+
+*****************************************************************************
+
+Step 2: Install Stripe Package
+=> composer require stripe/stripe-php
+
+************************************************************************************************************
+
+Step 3: Make Route
+=> Please open the your web.php file and then copy the below code and paste it in your file.
+
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\StripeController;
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
+Route::get('/',[StripeController::class,'index']);
+Route::get('success',[StripeController::class,'success']);
+
+*************************************************************************************************************
+
+Step 4: Create Controller
+=> php artisan make:controller StripeController
+=> Then go app/Http/Controllers/ directory and open StripeController. Then add the following code into StripeController.php.
+
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+use Stripe;
+
+class StripeController extends Controller
+{
+    public function index(){
+      $amount = rand(10,999);
+      \Stripe\Stripe::setApiKey('SET_YOUR_SECRET_KEY');
+
+      $intent = \Stripe\PaymentIntent::create([
+            'amount' => ($amount)*100,
+            'currency' => 'INR',
+            'metadata' => ['integration_check'=>'accept_a_payment']
+      ]);
+
+      $data = array(
+           'name'=> 'Sandeep',
+           'email'=> 'email@gmail.com',
+           'amount'=> $amount,
+           'client_secret'=> $intent->client_secret,
+      );
+     
+     return view('stripe',['data'=>$data]);
+
+    }
+
+    public function success(){
+     return view('success');
+    }
+}
+
+*****************************************************************************************************************
+
+Step 5: Create Blade View File
+=> In this step, Visit app/resources/views/ and create one blade view file name stripe.blade.php. Then add the following code into the stripe.blade.php file:
+
+  <!DOCTYPE html>
+  <html>
+  <head>    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://js.stripe.com/v3/"></script>
+  </head>
+  <body>
+        <form id="payment-form">
+             <input type="text" value="{{ $data['name'] }}"  id="name" name="name" required>
+             <br>
+            <input type="email" value="{{ $data['email'] }}" id="email" name="email" required>
+            <br>
+            <input type="text" value="&#8377; {{ $data['amount'] }}"  id="amount" name="amount" required>
+             
+             <div id="card-element">
+
+             </div>
+
+             <button id="submit" class="paynow">Pay Now</button>
+
+             <div id="card-errors" style="color: red;"></div>
+             <div id="card-thank" style="color: green;"></div>
+             <div id="card-message" style="color: green;"></div>
+             <div id="card-success" style="color: green;font-weight:bolder"></div>
+        </form>
+
+    <script type="text/javascript">
+        
+        $('#card-success').text('');
+        $('#card-errors').text('');
+        var stripe = Stripe('SET_YOUR_PUBLISHED_KEY');
+        var elements = stripe.elements();
+        $('#submit').prop('disabled', true);
+        // Set up Stripe.js and Elements to use in checkout form
+        var style = {
+          base: {
+            color: "#32325d",
+          }
+        };
+
+        var card = elements.create("card", { style: style });
+        card.mount("#card-element");
+
+
+        card.addEventListener('change', ({error}) => {
+          const displayError = document.getElementById('card-errors');
+          if (error) {
+            displayError.textContent = error.message;
+            $('#submit').prop('disabled', true);
+
+          } else {
+            displayError.textContent = '';
+            $('#submit').prop('disabled', false);
+
+          }
+        });
+
+        var form = document.getElementById('payment-form');
+        
+        form.addEventListener('submit', function(ev) {
+        $('.loading').css('display','block');
+
+          ev.preventDefault();
+          //cardnumber,exp-date,cvc
+          stripe.confirmCardPayment('{{ $data["client_secret"] }}', {
+            payment_method: {
+              card: card,
+              billing_details: {
+                name: '{{ $data["name"] }}',
+                email: '{{ $data["email"] }}'
+              }
+            },
+            setup_future_usage: 'off_session'
+          }).then(function(result) {
+            $('.loading').css('display','none');
+           
+            if (result.error) {
+            
+              $('#card-errors').text(result.error.message);
+            
+            } else {
+              if (result.paymentIntent.status === 'succeeded') {
+
+            
+                $('#card-success').text("payment successfully completed.");
+              console.log(card);
+                // setTimeout(
+                //   function(){ window.location.href = "{{url('/success')}}"; 
+                // }, 2000);
+              }
+              return false;
+            }
+          });
+        });
+    </script>
+
+</body>
+</html>
+
+************************************************************************************************************
+
+Step 7: Run Development Server
+=> In this step, execute the PHP artisan serve command on the terminal to start the development server:
+
+*****************************
+
+php artisan serve
