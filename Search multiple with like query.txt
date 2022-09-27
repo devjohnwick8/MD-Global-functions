@@ -1,0 +1,32 @@
+$allrequest = $req->except('_token');
+//        dd($allrequest);
+        $packages = PackageModel::query();
+        foreach ($allrequest as $id => $value) {
+            if ($id === 'country_id') {
+                $packages = $packages->where('country_id', $req->country_id);
+
+            }
+            elseif ($id === 'from_date' and $req->from_date != null) {
+                $packages = $packages->where('from_date', $req->from_date);
+
+            }
+            elseif ($id === 'end_date' and $req->end_date != null) {
+                $packages = $packages->where('end_date', $req->end_date);
+
+            }
+            elseif ($id === 'activity' and $req->activity != null) {
+                $packages = $packages->where('activity', $req->activity);
+
+            }
+            elseif ($id === 'price' and $req->price != null) {
+                $packages = $packages->where('price', $req->price);
+
+            }
+            elseif ($id === 'activities' and count($req->activities) > 0 ) {
+                foreach($req->activities as $values)
+                {
+                    $packages = $packages->where('activity_2', 'LIKE', '%' . $values . '%');
+                }
+            }
+        }
+        $packages = $packages->get();

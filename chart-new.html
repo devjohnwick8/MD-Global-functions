@@ -1,0 +1,41 @@
+<div>
+            <canvas id="myChart"></canvas>
+        </div>
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            <script>
+                const labels = [
+                    'January',
+                    'February',
+                    'March',
+                    'April',
+                    'May',
+                    'June',
+                    'July',
+                    'August',
+                    'September',
+                    'October',
+                    'November',
+                    'December',
+                ];
+                const data = {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Sales',
+                        backgroundColor: '#4A5055',
+                        borderColor: '#9ef3b4',
+                        data:['10','15','5','25','8','35']
+                        ,
+                    }]
+                };
+                const config = {
+                    type: 'line',
+                    data: data,
+                    options: {}
+                };
+                // === include 'setup' then 'config' above ===
+
+                var myChart = new Chart(
+                    document.getElementById('myChart'),
+                    config
+                );
+            </script>

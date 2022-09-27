@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="fontawesome5/css/all.min.css" rel="stylesheet">
+    <link href="slick/slick-theme.css" rel="stylesheet" type="text/css">
+    <link href="slick/slick.css" rel="stylesheet" type="text/css">
+    <link href="css/slicknav.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="css/jquery.fancybox.min.css">
+    <link rel="stylesheet" href="css/tailwind.min.css">
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.css">
+    <title>Shop detail</title>
+    <style>
+        .mt-100{margin-top: 100px}
+          .inner_body{background: #00B4DB;background: -webkit-linear-gradient(to right, #0083B0, #00B4DB);background: linear-gradient(to right, #0083B0, #00B4DB);color: #514B64;min-height: 100vh}
+
+    </style>
+</head>
+<div class="extra_space">
+
+    <body class="wrap">
+        <div class="inner_body">
+            
+        <div class="row d-flex justify-content-center mt-100">
+            <div class="col-md-6"> <select id="choices-multiple-remove-button" placeholder="Select upto 5 tags" multiple>
+                    <option value="HTML">HTML</option>
+                    <option value="Jquery">Jquery</option>
+                    <option value="CSS">CSS</option>
+                    <option value="Bootstrap 3">Bootstrap 3</option>
+                    <option value="Bootstrap 4">Bootstrap 4</option>
+                    <option value="Java">Java</option>
+                    <option value="Javascript">Javascript</option>
+                    <option value="Angular">Angular</option>
+                    <option value="Python">Python</option>
+                    <option value="Hybris">Hybris</option>
+                    <option value="SQL">SQL</option>
+                    <option value="NOSQL">NOSQL</option>
+                    <option value="NodeJS">NodeJS</option>
+                </select> </div>
+        </div>
+        </div>
+
+        </div><!-- .wrap -->
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+        <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
+        <script src="js/wow.js"></script>
+        <script src="slick/slick.js"></script>
+        <script src="slick/slick.min.js"></script>
+        <script src="js/jquery.slicknav.js"></script>
+        <script src="js/jquery.fancybox.min.js"></script>
+        <script src="js/bootstrap.js"></script>
+        <script src="js/custom.js"></script>
+
+            <script>
+                $(document).ready(function(){
+                
+                 var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
+                    removeItemButton: true,
+                    maxItemCount:5,
+                    searchResultLimit:5,
+                    renderChoiceLimit:5
+                  }); 
+                 
+                 
+             });
+            </script>
+    </body>
+</div>
+
+</html>
