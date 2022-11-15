@@ -1,0 +1,60 @@
+style>
+
+                    .vrmedia-gallery {
+                        max-width: 567px;
+                        margin: 5rem auto;
+                        background: white;
+                        padding: 20px;
+                        box-shadow: rgb(100 100 111 / 20%) 0px 7px 29px 0px;
+                        border-radius: 8px;
+                        backdrop-filter: opacity(0.5)
+                    }
+
+                    .vrmedia-gallery img {
+                        object-fit: cover;
+                        width: 100%
+                    }
+
+                    .vrmedia-gallery .lSGallery {
+                        display: inline-flex
+                    }
+
+                    .vrmedia-gallery .lSGallery li {
+                        border-radius: 12px !important
+                    }
+
+                    .vrmedia-gallery .lSGallery li.active {
+                        border: 1px solid #242423
+                    }
+                </style>
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightslider/1.1.6/css/lightslider.min.css">
+                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0.5/dist/fancybox.css">
+
+                <div class="vrmedia-gallery">
+                    <ul class="ecommerce-gallery">
+                        <li data-fancybox="gallery" data-src="https://via.placeholder.com/1000/2a9d8f/FFFFFF/?text=VRMedia%20Dev" data-thumb="https://via.placeholder.com/567/2a9d8f/FFFFFF/?text=VRMedia%20Dev" data-src="https://via.placeholder.com/567/2a9d8f/FFFFFF/?text=VRMedia%20Dev"> <img src="https://via.placeholder.com/567/2a9d8f/FFFFFF/?text=VRMedia%20Dev"></li>
+                        <li data-fancybox="gallery" data-src="https://via.placeholder.com/1000/0096c7/FFFFFF/?text=VRMedia%20Dev" data-thumb="https://via.placeholder.com/567/0096c7/FFFFFF/?text=VRMedia%20Dev" data-src="https://via.placeholder.com/567/0096c7/FFFFFF/?text=VRMedia%20Dev"> <img src="https://via.placeholder.com/567/0096c7/FFFFFF/?text=VRMedia%20Dev"></li>
+                        <li data-fancybox="gallery" data-src="https://via.placeholder.com/1000/ffb703/FFFFFF/?text=VRMedia%20Dev" data-thumb="https://via.placeholder.com/567/ffb703/FFFFFF/?text=VRMedia%20Dev" data-src="https://via.placeholder.com/567/ffb703/FFFFFF/?text=VRMedia%20Dev"> <img src="https://via.placeholder.com/567/ffb703/FFFFFF/?text=VRMedia%20Dev"></li>
+                        <li data-fancybox="gallery" data-src="https://via.placeholder.com/1000/d4a373/FFFFFF/?text=VRMedia%20Dev" data-thumb="https://via.placeholder.com/567/d4a373/FFFFFF/?text=VRMedia%20Dev" data-src="https://via.placeholder.com/567/d4a373/FFFFFF/?text=VRMedia%20Dev"> <img src="https://via.placeholder.com/567/d4a373/FFFFFF/?text=VRMedia%20Dev"></li>
+                        <li data-fancybox="gallery" data-src="https://via.placeholder.com/1000/ba181b/FFFFFF/?text=VRMedia%20Dev" data-thumb="https://via.placeholder.com/567/ba181b/FFFFFF/?text=VRMedia%20Dev" data-src="https://via.placeholder.com/567/ba181b/FFFFFF/?text=VRMedia%20Dev"> <img src="https://via.placeholder.com/567/ba181b/FFFFFF/?text=VRMedia%20Dev"></li>
+                        <li data-fancybox="gallery" data-src="https://via.placeholder.com/1000/89b0ae/FFFFFF/?text=VRMedia%20Dev" data-thumb="https://via.placeholder.com/567/89b0ae/FFFFFF/?text=VRMedia%20Dev" data-src="https://via.placeholder.com/567/89b0ae/FFFFFF/?text=VRMedia%20Dev"> <img src="https://via.placeholder.com/567/89b0ae/FFFFFF/?text=VRMedia%20Dev"></li>
+                    </ul>
+                </div>
+
+                @push('scripts')
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightslider/1.1.6/js/lightslider.min.js"></script>
+                    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0.5/dist/fancybox.umd.js"></script>
+
+                <script>
+                    jQuery(document).ready(function () {
+                        jQuery(".ecommerce-gallery").lightSlider({
+                            gallery: true,
+                            item: 1,
+                            loop: true,
+                            thumbItem: 4,
+                            thumbMargin: 10,
+                        });
+                    });
+                </script>
+                    @endpush

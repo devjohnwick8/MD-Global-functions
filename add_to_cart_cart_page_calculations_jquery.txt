@@ -1,0 +1,50 @@
+	
+
+	function sum_prices()
+        {
+            //for sum total and subtotal
+            var sum = 0;
+            $('.total').each(function(){
+                sum += parseFloat($(this).text());
+            });
+            $('#subtotal').html("$"+sum.toFixed(2));
+            $('#total').html("$"+sum.toFixed(2));
+        }
+
+        function plus(id) {
+            var input = $('#qty_' + id).val();
+            if(input < 100)
+            {
+                var intInput = parseInt(input) + 1;
+                $('#qty_' + id).val(intInput);
+
+                let pro_price = $('#pro_price_' + id).data("price");
+                let total = $('#total_' + id);
+                let final_total = parseFloat(pro_price)* parseFloat(intInput);
+                total.html(final_total.toFixed(2));
+                sum_prices()
+            }
+        }
+
+        function minus(id) {
+            var input = $('#qty_' + id).val();
+            if(input > 1)
+            {
+                var intInput = parseInt(input) - 1;
+                $('#qty_' + id).val(intInput);
+
+                let pro_price = $('#pro_price_' + id).data("price");
+                let total = $('#total_' + id);
+                let final_total = parseFloat(pro_price)* parseFloat(intInput);
+                total.html(final_total.toFixed(2));
+
+                sum_prices()
+            }
+        }
+
+        $(document).ready(function() {
+            @foreach($cart as $key => $data)
+                plus({{$key}});
+                minus({{$key}});
+            @endforeach
+        });

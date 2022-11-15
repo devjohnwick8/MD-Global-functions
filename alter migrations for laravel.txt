@@ -1,0 +1,24 @@
+public function up()
+    {
+        Schema::table('coupons', function (Blueprint $table) {
+            $table->date('valid_from')->nullable()->change();
+            $table->date('valid_to')->nullable()->change();
+            $table->string('code');
+            $table->integer('status');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::table('coupons', function($table) {
+            $table->dropColumn('status');
+            $table->dropColumn('code');
+            $table->string('valid_from')->nullable()->change();
+            $table->string('valid_to')->nullable()->change();
+        });
+    }
