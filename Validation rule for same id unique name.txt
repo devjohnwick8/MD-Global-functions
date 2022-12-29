@@ -1,0 +1,6 @@
+[
+                                                        'required','string','min:3','max:255',
+                                                        Rule::unique('boxes')
+                                                            ->ignore($this->name)
+                                                            ->where('client_id', $this->client_id)
+                                                    ],

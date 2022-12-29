@@ -1,0 +1,7 @@
+<script>	    
+navigator.clipboard.writeText("hello copy this text").then(function () {
+                alert('Message Copied! Do a CTRL - V to paste')
+            }, function () {
+                alert('Failure to copy. Check permissions for clipboard')
+            });
+</script>
