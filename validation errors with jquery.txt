@@ -1,0 +1,14 @@
+<form action="/submit" method="post">
+  @csrf
+  <input type="text" name="name" value="{{ old('name') }}" id="nameField">
+  @error('name')
+    <p style="color:red" id="nameError">{{ $message }}</p>
+  @enderror
+  <button type="submit">Submit</button>
+</form>
+
+<script>
+  @if ($errors->has('name'))
+    document.getElementById("nameField").scrollIntoView();
+  @endif
+</script>

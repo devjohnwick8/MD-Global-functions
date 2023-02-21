@@ -1,0 +1,3 @@
+add this on html tag to remove special characters on type
+
+'onkeypress' => 'return /[0-9a-zA-Z]/i.test(event.key)'
