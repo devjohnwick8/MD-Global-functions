@@ -1,0 +1,13 @@
+$upload_location = '/upload/healthtopics/';
+            $file = $request->file('images');
+            $name_gen = hexdec(uniqid()).'.'.$file->getClientOriginalExtension();
+            $file->move(public_path().$upload_location,$name_gen);
+            $save_url = $upload_location.$name_gen;
+
+
+
+
+use Illuminate\Support\Facades\File;
+if(isset($slider->slider_image) AND File::exists($slider->slider_image) == true){
+                unlink($slider->slider_image);
+            }
