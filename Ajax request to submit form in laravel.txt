@@ -14,24 +14,33 @@ $(document).ready(function() {
             contentType: false,
             cache: false,
             processData: false,
-            success: function(response) {
-                Toast.fire({
-                    icon: 'success',
-                    title: response.notification['message']
-                });
-                $("#reviews").trigger("reset"); // to reset form input fields
-                $("#show_error").html('');
-            },
-            error: function(xhr, status, error) {
-                var response = xhr.responseJSON;
-                if (response.errors) {
-                    var errorString = '';
-                    $.each(response.errors, function(key, value) {
-                        errorString += '<li>' + value + '</li>';
+                success: function(response) {
+                    Toast.fire({
+                        icon: 'success',
+                        title: response.notification['message']
                     });
-                    $("#show_error").html('<ul>' + errorString + '</ul>');
+                    $("#reviews").trigger("reset"); // to reset form input fields
+                    $("#show_error").html('');
+                },
+                error: function(xhr, status, error) {
+                    var response = xhr.responseJSON;
+                    if (xhr.status == 401) {
+                    Toast.fire({
+                        icon: 'error',
+                        title: 'Unauthorized ! Kindly Login first'
+                    });
+                    } else if (response.errors) {
+                        var errorString = '';
+                        $.each(response.errors, function(key, value) {
+                            errorString += '<li>' + value + '</li>';
+                        });
+                        $("#show_error").html('<ul>' + errorString + '</ul>');
+                        Toast.fire({
+                            icon: 'error',
+                            title: 'Kindly fill all required fields.'
+                        });
+                    }
                 }
-            }
             });
         }));
     });
