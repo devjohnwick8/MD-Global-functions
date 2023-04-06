@@ -1,0 +1,22 @@
+{{-- file pond css--}}
+<link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />
+<link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet" />
+
+
+
+{{-- file pond js--}}
+<script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
+<script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
+<script>
+
+    FilePond.registerPlugin(FilePondPluginImagePreview);
+    const input = document.querySelector('input[type="file"]');
+        // Create a FilePond instance
+        FilePond.create(input, {
+            storeAsFile: true,
+            acceptedFileTypes: ['image/*', 'video/*']
+        });
+    FilePond.parse(document.body);
+    $('.filepond--credits').hide();
+
+ </script>

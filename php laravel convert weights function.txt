@@ -1,0 +1,32 @@
+function convert_weight($weight, $weight_unit) {
+        switch ($weight_unit) {
+            case 'kg':
+                // Convert kilograms to pounds and ounces
+                $weight_lb = $weight * 2.20462;
+                $pounds = floor($weight_lb);
+                $ounces = round(($weight_lb - $pounds) * 16);
+                break;
+            case 'g':
+                // Convert grams to pounds and ounces
+                $weight_lb = $weight * 0.00220462;
+                $pounds = floor($weight_lb);
+                $ounces = round(($weight_lb - $pounds) * 16);
+                break;
+            case 'oz':
+                // Convert ounces to pounds and ounces
+                $pounds = floor($weight / 16);
+                $ounces = round($weight % 16);
+                break;
+            case 'lb':
+                // Get weight in pounds and ounces
+                $pounds = floor($weight);
+                $ounces = round(($weight - $pounds) * 16);
+                break;
+            default:
+                // Invalid weight unit
+                return 'Invalid weight unit.';
+        }
+
+        // Return weight in pounds and ounces
+        return ['pounds' => $pounds, 'ounces' => $ounces];
+    }

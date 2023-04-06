@@ -1,0 +1,27 @@
+use package:
+composer require intervention/image
+
+
+
+use Intervention\Image\Facades\Image;
+//////////////////////////////////////////////////////////
+	$upload_location = 'upload/sliders/';
+            $file = $request->file('slider_image');
+            $name_gen = hexdec(uniqid()) . '.' . $file->getClientOriginalExtension();
+
+            // Resize the image
+            $width = 1903;
+            $height = 656;
+
+            $img = Image::make($file)->resize($width, $height, function($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            });
+
+            // Add whitespace if necessary
+            $img->resizeCanvas($width, $height, 'center', false, '#FFFFFF');
+
+            // Save the image to public path
+            $img->save(public_path($upload_location . $name_gen));
+
+            $save_url = $upload_location . $name_gen;
