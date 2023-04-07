@@ -1,0 +1,24 @@
+$(document).ready(function() {
+        $('#country').trigger('change');
+    });
+
+    $('#country').change(function() {
+            var country_id = $('#country').val();
+            var state_id = {{ $address->state }};
+            $.ajax({
+                url: "{{route('getStates')}}",
+                type: "POST",
+                data: {
+                    country_id: country_id,
+                    _token: '{{csrf_token()}}'
+                },
+                dataType: 'json',
+                success: function (res) {
+                    $("#state").empty();
+                    $.each(res.states, function (key, value) {
+                        var selected = (state_id == value.id) ? "selected" : "";
+                        $("#state").append('<option value="' + value.id + '" ' + selected + '>' + value.name + '</option>');
+                    });
+                }
+            });
+        });
