@@ -1,0 +1,15 @@
+ 	//validating starts
+            $rules = [
+                'coupon_name' => 'required|unique:coupons,coupon_name,'.$id,
+                'coupon_type' => 'required|numeric',
+                'coupon_validity' => 'required|date',
+                'coupon_validity_to' => 'required|date',
+            ];
+
+            if ($request->input('coupon_type') !== '2') {
+                $rules['coupon_discount'] = 'required|numeric';
+            } else {
+                $rules['coupon_discount'] = 'nullable|numeric';
+            }
+            $this->validate($request, $rules);
+        //validating ends
