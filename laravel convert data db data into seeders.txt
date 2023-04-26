@@ -1,0 +1,49 @@
+<?php
+// Connect to the database
+$host = "localhost";
+$username = "root";
+$password = "";
+$dbname = "advance_ecommerce";
+
+$conn = mysqli_connect($host, $username, $password, $dbname);
+
+$sql = "SELECT * FROM `categories`";
+$result = $conn->query($sql);
+
+$data = array();
+
+// Fetch each row and store it in the $data array
+while($row = mysqli_fetch_assoc($result)) {
+    $data[] = $row;
+}
+
+// Print the $data array
+print_r(json_encode($data));
+
+
+// convert these data to json to array online
+//seeder here like this
+
+//uncomment these
+
+// $data = array (
+//     0 =>
+//     array (
+//       'id' => '1',
+//       'category_name_en' => 'Hair',
+//       'category_name_bn' => NULL,
+//       'category_slug_en' => 'hair',
+//       'category_slug_bn' => NULL,
+//       'category_icon' => NULL,
+//       'category_image' => NULL,
+//       'parent_id' => '350',
+//       'category_description' => '',
+//       'created_at' => '2023-02-28 21:48:48',
+//       'updated_at' => '2023-04-20 01:22:39',
+//       'category_meta_title' => NULL,
+//       'category_meta_tags' => 'Hair medicine, Hair medicine price，Hair medicine picture，best Hair medicine',
+//       'category_meta_desc' => 'Drugotc.com can provide you the best Hair medicine, Hair medicine price, Welcome to buy medicine at Drugotc.com!',
+//     ));
+//     DB::table('categories')->insert($data);
+
+?>
