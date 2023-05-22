@@ -1,0 +1,23 @@
+<input type="file" name="image[]" class="form-control " allowImagePreview="true" multiple  required="">
+
+<link rel="stylesheet" href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css')">
+<link rel="stylesheet" href="https://unpkg.com/filepond/dist/filepond.min.css')">
+
+<!-- Load FilePond library -->
+    <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
+    <script src="https://unpkg.com/filepond-plugin-file-encode/dist/filepond-plugin-file-encode.js"></script>
+    <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
+
+    <script>
+
+        FilePond.registerPlugin(FilePondPluginImagePreview);
+        const input = document.querySelector('input[type="file"]');
+            // Create a FilePond instance
+            FilePond.create(input, {
+                storeAsFile: true,
+                acceptedFileTypes: ['image/*', 'video/*']
+            });
+        FilePond.parse(document.body);
+        $('.filepond--credits').hide();
+
+     </script>
