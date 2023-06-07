@@ -1,0 +1,10 @@
+if (strpos($request->getPathInfo(), 'admin') !== false) {
+            if (! $request->expectsJson()) {
+                return route('login');
+            }
+        }
+        else{
+            if (! $request->expectsJson()) {
+                return route('member.login-view');
+            }
+        }
