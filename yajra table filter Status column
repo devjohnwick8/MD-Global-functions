@@ -1,0 +1,21 @@
+->addColumn('status', function ($data) {
+    if($data->status === 1)
+    {
+        return '<span class="badge rounded-pill bg-success">Active</span>';
+    }
+    else
+    {
+        return '<span class="badge rounded-pill bg-danger">InActive</span>';
+    }
+})
+->filterColumn('status', function ($query, $keyword) {
+    $query->where(function ($query) use ($keyword) {
+
+        $query->where('status', 0)->whereRaw("CONVERT('InActive' USING utf8mb4) LIKE ?", ["%{$keyword}%"]);
+
+    })->orWhere(function ($query) use ($keyword) {
+
+        $query->where('status', 1)->whereRaw("CONVERT('Active' USING utf8mb4) LIKE ?", ["%{$keyword}%"]);
+
+    });
+})
